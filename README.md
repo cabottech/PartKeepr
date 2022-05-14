@@ -12,6 +12,8 @@ Some of our changes include:
 - Replaced the Patreon button with a button to Radishi production tracking system.
 - A production build script for convenience: `partkeepr-build-prod.sh`, and some documentation: `cabottech-build-notes.md`. Requires: `phing` and `composer`.
 
+**Our mods are on branch: `ct-mods`**
+
 ---
 
 [![PartKeepr](https://partkeepr.org/images/partkeepr-banner.png)](https://www.partkeepr.org)
