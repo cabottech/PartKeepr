@@ -978,8 +978,6 @@ class Part extends BaseEntity
 
     public function recomputeStockLevels()
     {
-        // TODO: 20220512 DJC - Change average price algorithm here!
-        
         $currentStock = 0;
         $avgPrice = 0;
 
@@ -1027,6 +1025,12 @@ class Part extends BaseEntity
             $costingPrice = $lastPosEntryPrice;
         } else {
             $costingPrice = $avgPrice;
+        }
+
+        // Enforce a minimum costing price.
+        $minimumCostingPrice = 0.01; // TODO: 20220514 DJC: Load this from the project config/parameters.
+        if ($costingPrice < $minimumCostingPrice) {
+            $costingPrice = $minimumCostingPrice;
         }
 
         // Update the Part with the total stock quantity and calculated average and costing prices.

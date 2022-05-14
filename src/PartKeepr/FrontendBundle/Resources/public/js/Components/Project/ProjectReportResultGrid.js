@@ -33,6 +33,9 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
                     }
                 }]
             }, {
+                header: i18n("IPN"), dataIndex: 'part.internalPartNumber',
+                width: 100
+            }, {
                 header: i18n("Part Name"),
                 renderers: [{
                     rtype: "projectReportMetaPart"
@@ -84,13 +87,15 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
                     ignoreQuery: true,
                     forceSelection: true,
                     editable: false
-                }
+                },
+                hidden: true // TODO: 20220514 DJC: Unhide this and populate with something useful?
             }, {
                 header: i18n("Distributor Order Number"), dataIndex: 'distributorOrderNumber',
                 flex: 1,
                 editor: {
                     xtype: 'textfield'
-                }
+                },
+                hidden: true // TODO: 20220514 DJC: Unhide this and populate with something useful?
             }, {
                 header: i18n("Per Part Costing"), dataIndex: 'part.costingPrice',
                 renderers: [{

@@ -310,7 +310,7 @@ Ext.define('PartKeepr.PartsGrid', {
             {
                 header: i18n("Condition"),
                 dataIndex: "partCondition",
-                hidden: true,
+                hidden: true
             }, {
                 header: i18n("Stock"),
                 dataIndex: 'stockLevel',
