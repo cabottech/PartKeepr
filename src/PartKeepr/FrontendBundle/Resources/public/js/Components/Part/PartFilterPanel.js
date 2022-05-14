@@ -989,7 +989,7 @@ Ext.define('PartKeepr.PartFilterPanel', {
         this.filterControls.push(this.conditionFilter);
 
         this.internalPartNumberFilter = Ext.create("Ext.form.field.Text", {
-            fieldLabel: i18n("Internal Part Number"),
+            fieldLabel: i18n("IPN"),
             anchor: '100%',
             plugins: [
                 Ext.create("PartKeepr.Util.FilterPlugin", {

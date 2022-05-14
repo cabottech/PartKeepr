@@ -59,7 +59,7 @@ Ext.define('PartKeepr.PartsGrid', {
     invalidateScrollerOnRefresh: true,
     titleProperty: 'name',
     searchFieldSystemPreference: "partkeepr.part.search.field",
-    searchFieldSystemPreferenceDefaults: ["name", "description", "comment", "internalPartNumber"],
+    searchFieldSystemPreferenceDefaults: ["internalPartNumber", "name", "description", "comment"],
     splitSearchTermSystemPreference: "partkeepr.part.search.split",
     splitSearchTermSystemPreferenceDefaults: true,
 
@@ -289,6 +289,9 @@ Ext.define('PartKeepr.PartsGrid', {
                     }
                 }]
             }, {
+                header: i18n("IPN"),
+                dataIndex: 'internalPartNumber'
+            }, {
                 header: i18n("Name"),
                 dataIndex: 'name',
                 flex: 1,
@@ -306,7 +309,8 @@ Ext.define('PartKeepr.PartsGrid', {
                 dataIndex: "status"},
             {
                 header: i18n("Condition"),
-                dataIndex: "partCondition"
+                dataIndex: "partCondition",
+                hidden: true,
             }, {
                 header: i18n("Stock"),
                 dataIndex: 'stockLevel',
@@ -331,6 +335,13 @@ Ext.define('PartKeepr.PartsGrid', {
                     rtype: "currency"
                 }]
             }, {
+                header: i18n("Costing Price"),
+                dataIndex: 'costingPrice',
+                align: 'right',
+                renderers: [{
+                    rtype: "currency"
+                }]
+            }, {
                 header: i18n("Footprint"),
                 dataIndex: 'footprint.name'
             }, {
@@ -344,7 +355,8 @@ Ext.define('PartKeepr.PartsGrid', {
             }, {
                 header: i18n("Internal ID"),
                 dataIndex: '@id',
-                 renderers: [{
+                hidden: true,
+                renderers: [{
                     rtype: "internalID"
                 }]
             }

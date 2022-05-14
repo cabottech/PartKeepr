@@ -92,7 +92,7 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
                     xtype: 'textfield'
                 }
             }, {
-                header: i18n("Item Price"), dataIndex: 'part.averagePrice',
+                header: i18n("Per Part Costing"), dataIndex: 'part.costingPrice',
                 renderers: [{
                     rtype: 'currency'
                 }],
@@ -164,7 +164,7 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
         });
 
         this.autoFillButton = Ext.create('Ext.button.Button', {
-            text: i18n("Auto-Fill Distributors"),
+            text: i18n("Calculate Costings"),
             iconCls: 'fugue-icon notification-counter-02',
             listeners: {
                 click: this.onAutoFillClick,
@@ -412,12 +412,44 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
             this.projectPartStack.push(activeRecord);
         }
 
-        this.processCheapestDistributorStack(this.projectPartStack.length);
+        // 20220514 DJC: CM doesn't use this 'Cheapest Distributor' costing. We'll calculate our own costing instead.
+        //this.processCheapestDistributorStack(this.projectPartStack.length); // Old/original method not used by CM.
+        this.processCostingPriceStack(this.projectPartStack.length); // Our new method!
 
         if (this.waitMessage instanceof Ext.window.MessageBox)
         {
             this.waitMessage.hide();
         }
+    },
+    processCostingPriceStack: function (totalCount)
+    {
+        // Added to replace 'Cheapest Distributor' method.
+        if (this.projectPartStack.length === 0)
+        {
+            if (this.waitMessage instanceof Ext.window.MessageBox)
+            {
+                this.waitMessage.hide();
+            }
+            return;
+        }
+        this.displayWaitWindow(
+            i18n("Processing costings…"),
+            (totalCount - this.projectPartStack.length) + " / " + totalCount,
+            1 / totalCount * (totalCount - this.projectPartStack.length));
+        this.processCostingPriceForProjectPart(this.projectPartStack.shift());
+
+        Ext.defer(this.processCostingPriceStack, 1, this, [totalCount]);
+    },
+    processCostingPriceForProjectPart: function (projectPart)
+    {
+        // TODO: 20220514 DJC: Consider removing Distributor columns? Or do something useful with them? I.e. last ordered Distributor?
+        //projectPart.setDistributor(cheapestDistributor.getDistributor());
+        //projectPart.set("distributorOrderNumber", cheapestDistributor.get("orderNumber"));
+
+        //projectPart.set("itemPrice", cheapestDistributor.get("price"));
+        projectPart.set("itemPrice", projectPart.getPart().get("costingPrice"));
+        projectPart.set("orderSum", projectPart.get("missing") * projectPart.get("itemPrice"));
+        projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("itemPrice"));
     },
     processCheapestDistributorStack: function (totalCount)
     {

@@ -165,6 +165,16 @@ class Part extends BaseEntity
     private $averagePrice = 0;
 
     /**
+     * The costing price for the part. Intended for quoting. Typically higher than avergae price. Note that this is a cached value.
+     *
+     * @ORM\Column(type="decimal",precision=13,scale=4,nullable=false)
+     * @Groups({"readonly"})
+     *
+     * @var float
+     */
+    private $costingPrice = 0;
+
+    /**
      * The stock level history.
      *
      * @ORM\OneToMany(targetEntity="PartKeepr\StockBundle\Entity\StockEntry",mappedBy="part",cascade={"persist", "remove"})
@@ -743,7 +753,7 @@ class Part extends BaseEntity
     }
 
     /**
-     * Returns the acrage price.
+     * Returns the average price.
      *
      * @return float
      */
@@ -760,6 +770,26 @@ class Part extends BaseEntity
     public function setAveragePrice($price)
     {
         $this->averagePrice = $price;
+    }
+
+    /**
+     * Returns the costing price.
+     *
+     * @return float
+     */
+    public function getCostingPrice()
+    {
+        return $this->costingPrice;
+    }
+
+    /**
+     * Sets the costing price for this part.
+     *
+     * @param float $price The price to set
+     */
+    public function setCostingPrice($price)
+    {
+        $this->costingPrice = $price;
     }
 
     /**
@@ -948,6 +978,8 @@ class Part extends BaseEntity
 
     public function recomputeStockLevels()
     {
+        // TODO: 20220512 DJC - Change average price algorithm here!
+        
         $currentStock = 0;
         $avgPrice = 0;
 
@@ -956,20 +988,28 @@ class Part extends BaseEntity
         $lastPosEntryPrice = 0;
         $negativeStock = 0;
 
+        // Iterate through Stock Entries for this Part:
         foreach ($this->getStockLevels() as $stockLevel) {
+
+            // Cumulate a running sum of total stock quantity.
             $currentStock += $stockLevel->getStockLevel();
 
             if ($currentStock <= 0) {
+                // The total stock quantity at *this* point in time was exhausted, so zero our figures
+                // (i.e. disregard Stock Entries and pricing up to this point)
                 $avgPrice = 0;
                 $totalPartStockPrice = 0;
                 $negativeStock = $currentStock;
             } else {
+                // The total stock level is positive, so keep going...
                 if ($stockLevel->getStockLevel() > 0) {
+                    // The current Stock Entry is positive, i.e. stock was purchased and added for this Part
                     $lastPosEntryQuant = $stockLevel->getStockLevel();
                     $lastPosEntryPrice = $stockLevel->getPrice();
                     $totalPartStockPrice += $lastPosEntryPrice * ($lastPosEntryQuant + $negativeStock);
                     $avgPrice = $totalPartStockPrice / $currentStock;
                 } else {
+                    // The current Stock Entry is *not* positive, i.e. stock was removed (used) for this Part
                     if ($currentStock < $lastPosEntryQuant) {
                         $totalPartStockPrice = $currentStock * $lastPosEntryPrice;
                         $avgPrice = $totalPartStockPrice / $currentStock;
@@ -982,8 +1022,17 @@ class Part extends BaseEntity
             }
         }
 
+        // Pick the higher price as our costing price (safer when quoting).
+        if ($lastPosEntryPrice > $avgPrice) {
+            $costingPrice = $lastPosEntryPrice;
+        } else {
+            $costingPrice = $avgPrice;
+        }
+
+        // Update the Part with the total stock quantity and calculated average and costing prices.
         $this->setStockLevel($currentStock);
         $this->setAveragePrice($avgPrice);
+        $this->setCostingPrice($costingPrice);
 
         if ($currentStock < $this->getMinStockLevel()) {
             $this->setLowStock(true);

@@ -224,6 +224,17 @@ margin-left: -75px;
     background-image: url(../images/become_a_patron_button.png);
 }
 
+.radishiLogo {
+   background-image: url(../images/radishi-logo.png);
+}
+
+.radishiButton {
+    display: block;
+    height: 51px;
+    width: 217px;
+    background-image: url(../images/radishi-button.png);
+}
+
 .x-panel-notification {
     padding: 2px;
 }

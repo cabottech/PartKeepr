@@ -39,7 +39,7 @@ Ext.define('PartKeepr.PartManager', {
                     direction: 'ASC'
                 },
                 {
-                    property: 'name',
+                    property: 'internalPartNumber', // 20220512 DJC: Sort by IPN (not name)
                     direction: 'ASC'
                 }
             ]

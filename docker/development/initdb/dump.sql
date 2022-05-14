@@ -1137,6 +1137,7 @@ CREATE TABLE `Part` (
   `stockLevel` int(11) NOT NULL,
   `minStockLevel` int(11) NOT NULL,
   `averagePrice` decimal(13,4) NOT NULL,
+  `costingPrice` decimal(13,4) NOT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `needsReview` tinyint(1) NOT NULL,
   `partCondition` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,

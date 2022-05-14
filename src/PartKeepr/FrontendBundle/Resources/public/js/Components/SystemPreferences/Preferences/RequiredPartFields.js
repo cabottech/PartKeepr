@@ -14,6 +14,7 @@ Ext.define('PartKeepr.Components.SystemPreferences.Preferences.RequiredPartField
                 "needsReview",
                 "stockLevel",
                 "averagePrice",
+                "costingPrice",
                 "createDate",
                 "removals",
                 "lowStock",

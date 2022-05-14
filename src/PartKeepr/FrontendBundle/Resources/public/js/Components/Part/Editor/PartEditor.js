@@ -182,7 +182,7 @@ Ext.define('PartKeepr.PartEditor', {
                     {
                         xtype: 'textfield',
                         labelWidth: 150,
-                        fieldLabel: i18n("Internal Part Number"),
+                        fieldLabel: i18n("IPN"),
                         name: 'internalPartNumber',
                         allowBlank: this.isOptional("internalPartNumber"),
                         flex: 1

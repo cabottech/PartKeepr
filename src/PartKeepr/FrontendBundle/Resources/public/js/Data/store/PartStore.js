@@ -10,7 +10,7 @@ Ext.define("PartKeepr.Data.Store.PartStore", {
     groupField: 'categoryPath',
 
     searchFieldSystemPreference: "partkeepr.part.search.field",
-    searchFieldSystemPreferenceDefaults: ["name", "description", "comment", "internalPartNumber"],
+    searchFieldSystemPreferenceDefaults: ["internalPartNumber", "name", "description", "comment"],
     splitSearchTermSystemPreference: "partkeepr.part.search.split",
     splitSearchTermSystemPreferenceDefaults: true,
 
@@ -20,7 +20,7 @@ Ext.define("PartKeepr.Data.Store.PartStore", {
             direction: 'ASC'
         },
         {
-            property: 'name',
+            property: 'internalPartNumber',
             direction: 'ASC'
         }
     ]

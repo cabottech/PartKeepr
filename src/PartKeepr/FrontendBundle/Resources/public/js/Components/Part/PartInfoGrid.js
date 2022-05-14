@@ -4,6 +4,9 @@ Ext.define("PartKeepr.Components.Part.PartInfoGrid", {
     sortableColumns: false,
 
     fieldConfigs: {
+        internalPartNumber: {
+            displayName: i18n("IPN")
+        },
         "category.name": {
             displayName: i18n("Category Name")
         },
@@ -35,9 +38,6 @@ Ext.define("PartKeepr.Components.Part.PartInfoGrid", {
         needsReview: {
             displayName: i18n("Needs Review"),
             type: 'boolean'
-        },
-        internalPartNumber: {
-            displayName: i18n("Internal Part Number")
         },
         projectNames: {
             displayName: i18n("Used in Projects")
@@ -77,7 +77,7 @@ Ext.define("PartKeepr.Components.Part.PartInfoGrid", {
             displayName: i18n("Comment")
         },
         internalPartNumber: {
-            displayName: i18n("Internal Part Number")
+            displayName: i18n("IPN")
         }
     },
 

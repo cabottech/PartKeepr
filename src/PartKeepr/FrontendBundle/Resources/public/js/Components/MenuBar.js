@@ -114,11 +114,12 @@ Ext.define('PartKeepr.MenuBar', {
 
         this.menu.menu.push({
             xtype: 'button',
-            text: i18n("Patreon Status"),
-            iconCls: 'patreonLogo',
-            handler: this.showPatreonStatusDialog,
+            text: i18n("Radishi"),
+            iconCls: 'radishiLogo',
+            handler: this.showRadishiDialog,
             scope: this
         });
+        /*
         if (Ext.isObject(window.parameters.patreonStatus)) {
             this.menu.menu.push({
                 xtype: 'progressbar',
@@ -126,6 +127,7 @@ Ext.define('PartKeepr.MenuBar', {
                 width: 50
             });
         }
+        */
 
         this.menu.menu.push({xtype: 'tbfill'});
         this.menu.menu.push({xtype: 'button', iconCls: 'partkeeprLogo'});
@@ -135,8 +137,8 @@ Ext.define('PartKeepr.MenuBar', {
 
         this.callParent();
     },
-    showPatreonStatusDialog: function () {
-        var window = Ext.create("PartKeepr.Components.PatreonStatusDialog");
+    showRadishiDialog: function () {
+        var window = Ext.create("PartKeepr.Components.RadishiDialog");
         window.show();
     },
     selectTheme: function (theme) {
