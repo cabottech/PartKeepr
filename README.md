@@ -4,15 +4,7 @@ This is a fork that has been modified for internal use by [Cabot Technologies](h
 
 This fork is made public here to share our changes, and just in case anyone else can benefit from these.
 
-Some of our changes include:
-
-- Parts has a new field added: `costingPrice`. This is slightly different to `averagePrice` in that if the last order price was higher than average, it uses this. We found this is better for our project costing estimation.
-- The internal part number (IPN) is much more prominant. We use this a lot inhouse, so it's the first column and used to sort in the grid view.
-- Project Reports uses our new `Part.costingPrice` instead of the 'lowest distributor' prices. The 'Auto-Fill Distributors' button is now 'Calculate Costings'. Again, this suits our project costing estimates workflow.
-- Replaced the Patreon button with a button to Radishi production tracking system.
-- A production build script for convenience: `partkeepr-build-prod.sh`, and some documentation: `cabottech-build-notes.md`. Requires: `phing` and `composer`.
-
-**Our mods are on branch: `ct-mods`**
+**Our mods and documentation are on the [ct-mods branch](https://github.com/cabottech/PartKeepr/tree/ct-mods).**
 
 ---
 
