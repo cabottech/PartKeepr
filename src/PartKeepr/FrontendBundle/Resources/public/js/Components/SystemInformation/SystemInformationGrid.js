@@ -25,9 +25,7 @@ Ext.define('PartKeepr.SystemInformationGrid', {
     /**
      * Initializes the component
      */
-    initComponent: function ()
-    {
-
+    initComponent: function () {
         /* Add grouping */
         var groupingFeature = Ext.create('Ext.grid.feature.Grouping', {
             groupHeaderTpl: '{name}'
@@ -41,7 +39,6 @@ Ext.define('PartKeepr.SystemInformationGrid', {
             sorters: ['category', 'name'],
             groupField: 'category'
         });
-
 
         /* Add the refresh button */
         this.refreshButton = Ext.create("Ext.button.Button", {
@@ -62,12 +59,12 @@ Ext.define('PartKeepr.SystemInformationGrid', {
         this.callParent();
 
         // Retrieve the system information
-       this.store.load();
+        this.store.load();
     },
     statics: {
         iconCls: 'fugue-icon system-monitor',
         title: i18n('System Information'),
         closable: true,
-        menuPath: [{text: i18n("View")}]
+        menuPath: [{ text: i18n("View") }]
     }
 });

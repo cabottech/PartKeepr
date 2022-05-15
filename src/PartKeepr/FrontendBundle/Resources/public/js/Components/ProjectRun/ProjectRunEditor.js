@@ -47,6 +47,17 @@ Ext.define('PartKeepr.ProjectRunEditor', {
         this.partGrid = Ext.create("Ext.grid.Panel", {
             columns: [
                 {
+                    header: i18n("IPN"),
+                    //dataIndex: 'internalPartNumber',
+                    renderer: function (r, v, rec)
+                    {
+                        if (rec.getPart() !== null) {
+                            return rec.getPart().get("internalPartNumber");
+                        }
+                        return "";
+                    },
+                    width: 50
+                }, {
                     header: i18n("Part Name"),
                     renderer: function (r, v, rec)
                     {
@@ -54,17 +65,28 @@ Ext.define('PartKeepr.ProjectRunEditor', {
                             return rec.getPart().get("name");
                         }
                         return "";
-                    }
+                    },
+                    flex: 1,
+                    minWidth: 300
                 }, {
                     header: i18n("Qty"),
                     dataIndex: 'quantity'
                 }, {
                     header: i18n("Lot Number"),
-                    dataIndex: 'lotNumber'
+                    dataIndex: 'lotNumber',
+                    flex: 2,
+                    minWidth: 150
                 }
 
             ],
-            store: this.store
+            store: this.store,
+            // TODO: 20220514 DJC: This sorter isn't working. Need to figure out how to do this correctly.
+            /*
+            sorters: [{ 
+                property: 'internalPartNumber',
+                direction: 'DESC'
+            }]
+            */
         });
 
         var container = Ext.create("Ext.form.FieldContainer", {

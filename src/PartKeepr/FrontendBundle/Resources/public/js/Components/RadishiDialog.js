@@ -3,7 +3,7 @@ Ext.define("PartKeepr.Components.RadishiDialog", {
 
     title: i18n("Radishi"),
     width: 400,
-    height: 400,
+    height: 300,
 
     items: [{
         xtype: 'component',

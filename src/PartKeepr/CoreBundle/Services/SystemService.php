@@ -65,6 +65,12 @@ class SystemService extends ContainerAware
         $aData[] = new SystemInformationRecord('Operating System Type', $os->getPlatform(), 'System');
         $aData[] = new SystemInformationRecord('Operating System Release', $os->getRelease(), 'System');
 
+        $aData[] = new SystemInformationRecord(
+            'Load Average (1, 5, 15 minutes)',
+            $this->getServerLoadAvg(),
+            'System'
+        );
+
         $aData[] = new SystemInformationRecord('memory_limit', ini_get('memory_limit'), 'PHP');
         $aData[] = new SystemInformationRecord('post_max_size', ini_get('post_max_size'), 'PHP');
         $aData[] = new SystemInformationRecord('upload_max_filesize', ini_get('upload_max_filesize'), 'PHP');
@@ -222,6 +228,26 @@ class SystemService extends ContainerAware
         }
 
         return $size;
+    }
+
+    /**
+     * Returns the server load average over the last 1, 5, and 15 minutes
+     * 
+     * See: https://stackoverflow.com/a/22949393
+     * 
+     * @return string The server load averages for 1, 5, and 15 minutes as a string.
+     */
+    public function getServerLoadAvg()
+    {
+        $load = sys_getloadavg();
+        // $load = [1.1, 2.2, 3.3]; // For testing.
+
+        if ($load === null) {
+            return "? ? ?";
+        }
+        
+        //return $load[0];
+        return sprintf('%.1f %.1f %.1f', $load[0], $load[1], $load[2]);
     }
 
     /**

@@ -34,7 +34,7 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
                 }]
             }, {
                 header: i18n("IPN"), dataIndex: 'part.internalPartNumber',
-                width: 100
+                width: 50
             }, {
                 header: i18n("Part Name"),
                 renderers: [{

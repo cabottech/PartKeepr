@@ -290,7 +290,8 @@ Ext.define('PartKeepr.PartsGrid', {
                 }]
             }, {
                 header: i18n("IPN"),
-                dataIndex: 'internalPartNumber'
+                dataIndex: 'internalPartNumber',
+                width: 50
             }, {
                 header: i18n("Name"),
                 dataIndex: 'name',

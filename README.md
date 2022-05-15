@@ -11,6 +11,10 @@ Some of our changes include:
 - Project Reports uses our new `Part.costingPrice` instead of the 'lowest distributor' prices. The 'Auto-Fill Distributors' button is now 'Calculate Costings'. Again, this suits our project costing estimates workflow.
 - Replaced the Patreon button with a button to Radishi production tracking system.
 - A production build script for convenience: `partkeepr-build-prod.sh`, and some documentation: `cabottech-build-notes.md`. Requires: `phing` and `composer`.
+- Added 'Qty' column to Project Run left-sidebar, and 'IPN' column to grid view.
+- Added server load (1, 5, 15min) to System Information page and status bar (auto-refreshing).
+- Added Project Qty to Project Run left side-bar.
+- Added IPN to Project Run grid view.
 
 **Our mods are on branch: `ct-mods`**
 

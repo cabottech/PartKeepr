@@ -7,7 +7,7 @@ Ext.define('PartKeepr.ProjectPartGrid', {
     /* Column definitions */
     columns: [
         {
-            header: i18n("Quantity"), dataIndex: 'quantity',
+            header: i18n("Qty"), dataIndex: 'quantity',
             wdith: 50,
             editor: {
                 xtype: 'numberfield',
